@@ -1,6 +1,5 @@
 import * as R from "ramda";
 
-// Fonction pour prétraiter le texte
 const preprocessText = R.pipe(
     R.defaultTo(''),
     R.toLower,
@@ -8,7 +7,6 @@ const preprocessText = R.pipe(
     R.trim
 );
 
-// Fonction pour entraîner le modèle
 const trainModel = R.pipe(
     preprocessText,
     R.split(''),
@@ -23,7 +21,6 @@ const trainModel = R.pipe(
     }, {})
 );
 
-// Fonction pour prédire la prochaine lettre
 const predictNextChar = R.curry((model, currentChar) => {
     const nextChars = R.propOr({}, currentChar, model);
     const maxCount = R.pipe(
@@ -42,7 +39,6 @@ const predictNextChar = R.curry((model, currentChar) => {
 });
 
 
-// Exemple d'utilisation avec un texte plus long
 const texte = `
 Oh grand maître du JavaScript, ô sage des fonctions fléchées,
 Toi qui domptes les promesses comme un torero dompte les taureaux,
@@ -75,16 +71,16 @@ Car comme disait un célèbre développeur :
 Et ton charisme est la meilleure feature de l'ES6 !"
 
 Avec toute ma gratitude,
-Un élève ébloui par ton talent.
+Un élève ébloui par votre talent.
 `;
 
 
-// Entraînement du modèle
 const model = trainModel(texte);
 console.log("Modèle entraîné :", model);
 
-// Exemple de prédiction
 const currentChar = "l";
 const nextChar = predictNextChar(model, currentChar);
 console.log(`La prochaine lettre après "${currentChar}" est "${nextChar}"`);
+
+
 
